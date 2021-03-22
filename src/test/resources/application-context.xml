@@ -5,5 +5,83 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 				http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
-				
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="classpath:locations.properties" />
+	</bean>
+
+
+	<bean name="moscow" class="com.luxoft.springcore.objects.City">
+		<property name="id" value="1"/>
+		<property name="name" value="Moscow"/>
+		<property name="country" ref="russia"/>
+	</bean>
+
+	<bean name="warsaw" class="com.luxoft.springcore.objects.City">
+		<property name="id" value="2"/>
+		<property name="name" value="Warsaw"/>
+		<property name="country" ref="poland"/>
+	</bean>
+
+	<bean name="krakow" class="com.luxoft.springcore.objects.City">
+		<property name="id" value="3"/>
+		<property name="name" value="Krakow"/>
+		<property name="country" ref="poland"/>
+	</bean>
+
+	<bean name="sofia" class="com.luxoft.springcore.objects.City">
+		<property name="id" value="4"/>
+		<property name="name" value="Sofia"/>
+		<property name="country" ref="bulgaria"/>
+	</bean>
+
+	<bean name="vienna" class="com.luxoft.springcore.objects.City">
+		<property name="id" value="5"/>
+		<property name="name" value="Vienna"/>
+		<property name="country" ref="austria"/>
+	</bean>
+
+	<bean name="russia" class="com.luxoft.springcore.objects.Country">
+		<property name="id" value="1"/>
+		<property name="name" value="${russia.name}"/>
+		<property name="codeName" value="${russia.codeName}"/>
+	</bean>
+
+	<bean name="poland" class="com.luxoft.springcore.objects.Country">
+		<property name="id" value="2"/>
+		<property name="name" value="${poland.name}"/>
+		<property name="codeName" value="${poland.codeName}"/>
+	</bean>
+
+	<bean name="bulgaria" class="com.luxoft.springcore.objects.Country">
+		<property name="id" value="3"/>
+		<property name="name" value="${bulgaria.name}"/>
+		<property name="codeName" value="${bulgaria.codeName}"/>
+	</bean>
+
+	<bean name="austria" class="com.luxoft.springcore.objects.Country">
+		<property name="id" value="4"/>
+		<property name="name" value="${austria.name}"/>
+		<property name="codeName" value="${austria.codeName}"/>
+	</bean>
+
+	<bean name="russianPerson" class="com.luxoft.springcore.objects.UsualPerson">
+		<constructor-arg name="name" value="Viktor Ponedelnik"/>
+		<constructor-arg name="age" value="35"/>
+		<constructor-arg name="city" ref="moscow"/>
+	</bean>
+
+	<bean name="bulgarianPerson" class="com.luxoft.springcore.objects.UsualPerson">
+		<constructor-arg name="name" value="Emil Kostadinov"/>
+		<constructor-arg name="age" value="37"/>
+		<constructor-arg name="city" ref="sofia"/>
+	</bean>
+
+	<bean name="operatorsBean" class="com.luxoft.springcore.objects.Operators">
+		<property name="ageComparisonTest" value="#{russianPerson.age lt bulgarianPerson.age}"/>
+		<property name="distanceComparisonTest" value="#{true}"/>
+	</bean>
+
+	<bean name="travellingOpportunities" class="com.luxoft.springcore.travel.TravellingOpportunities" autowire="byType">
+	</bean>
 </beans>

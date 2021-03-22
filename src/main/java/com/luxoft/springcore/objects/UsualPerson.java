@@ -1,6 +1,12 @@
 package com.luxoft.springcore.objects;
 
-public class UsualPerson implements Person {
+import com.luxoft.springcore.travel.Connection;
+import com.luxoft.springcore.travel.TravellingOpportunities;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+
+public class UsualPerson implements Person, ApplicationContextAware {
     private int id;
 
     private String name;
@@ -9,6 +15,8 @@ public class UsualPerson implements Person {
     
 	private int age;
 	private boolean isProgrammer;
+
+    private ApplicationContext context;
     
     public UsualPerson(String name, int age, City city) {
     	this.name = name;
@@ -67,7 +75,11 @@ public class UsualPerson implements Person {
     
     
     public void travel(City source, City destination) {
-    	
+        TravellingOpportunities travellingOpportunities = context.getBean("travellingOpportunities", TravellingOpportunities.class);
+        Connection connection = travellingOpportunities.getConnection(source, destination);
+        distanceTravelled += connection.getDistance();
+        city = destination;
+        System.out.println(name + " has arrived to " + city);
     }
 
     public String toString() {
@@ -75,7 +87,6 @@ public class UsualPerson implements Person {
                 + "Age: " + age + "\n"
                 + "City: " + city + "\n"
                 + "Is Programmer?: " + isProgrammer + "\n";
-
         return s;
     }
 
@@ -102,4 +113,8 @@ public class UsualPerson implements Person {
         return result;
     }
 
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.context = applicationContext;
+    }
 }

@@ -40,11 +40,11 @@ public class TravellingTest {
 
 	@Test
 	public void testInitPersons() {
-		russianPerson = (UsualPerson) context.getBean("russianPerson", UsualPerson.class);
+		russianPerson = context.getBean("russianPerson", UsualPerson.class);
 		UsualPerson expectedRussianPerson = new UsualPerson("Viktor Ponedelnik", 35, moscow);
 		assertEquals(expectedRussianPerson, russianPerson);
 		
-		bulgarianPerson = (UsualPerson) context.getBean("bulgarianPerson", UsualPerson.class);
+		bulgarianPerson = context.getBean("bulgarianPerson", UsualPerson.class);
 		UsualPerson expectedBulgarianPerson = new UsualPerson("Emil Kostadinov", 37, sofia);
 		assertEquals(expectedBulgarianPerson, bulgarianPerson);
 		
@@ -54,12 +54,12 @@ public class TravellingTest {
 	
 	@Test
 	public void testPersonsTravelling() {
-		russianPerson = (UsualPerson) context.getBean("russianPerson", UsualPerson.class);
+		russianPerson = context.getBean("russianPerson", UsualPerson.class);
 		russianPerson.travel(moscow, warsaw);
 		russianPerson.travel(warsaw, krakow);
 		assertEquals(russianPerson.getDistanceTravelled(), 1386);
 		
-		bulgarianPerson = (UsualPerson) context.getBean("bulgarianPerson", UsualPerson.class);
+		bulgarianPerson = context.getBean("bulgarianPerson", UsualPerson.class);
 		bulgarianPerson.travel(sofia, vienna);
 		bulgarianPerson.travel(vienna, krakow);
 		assertEquals(bulgarianPerson.getDistanceTravelled(), 1166);
